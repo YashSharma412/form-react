@@ -60,3 +60,11 @@
 .hide{
     visibility: hidden;
 }
+
+.correct:focus{
+    outline: 3px solid greenyellow !important;
+}
+
+.wrong:focus{
+    outline: 2px solid red !important;
+}

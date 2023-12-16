@@ -58,6 +58,7 @@ const Form = () => {
           type="email"
           id="email"
           name="email"
+          className={(email !== "")?(validEmail ? "correct" : "wrong"):""}
           placeholder="abc@xyz.com"
           onChange={(e)=>setEmail(e.target.value)}
           value={email}
@@ -74,6 +75,7 @@ const Form = () => {
           type="password"
           id="password"
           name="password"
+          className={(password !== "")?(validPwd ? "correct" : "wrong"):""}
           placeholder="Enter a password"
           onChange={(e)=>setPassword(e.target.value)}
           value={password}
@@ -90,6 +92,7 @@ const Form = () => {
           type="password"
           id="confirm_pwd"
           name="confirm_pwd"
+          className={(cnfPwd !== "")?(validCnfPwd ? "correct" : "wrong"):""}
           placeholder="Re-Enter the password"
           onChange={(e)=>setCnfPwd(e.target.value)}
           value={cnfPwd}
