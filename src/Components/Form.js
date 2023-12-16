@@ -1,26 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cnfPwd, setCnfPwd] = useState("");
-  const [validEmail, setEmailState] = useState("");
-  const [validPwd, setPwdState] = useState("");
-  const [validCnfPwd, setCnfState] = useState("");
-  //   const [allowSubmit, submitState] = useState(false);
+
+  const [validEmail, setEmailState] = useState(false);
+  const [validPwd, setPwdState] = useState(false);
+  const [validCnfPwd, setCnfState] = useState(false);
+
   function handleSubmit(event) {
     event.preventDefault();
     if (validEmail && validPwd && validCnfPwd) {
-      console.log("i ran");
-      // allowSubmit(true);
+        alert("User Login Info Saved Successfully")
+        console.log("email :", email)
+        console.log("password: ", password)
+        console.log("cnf password: ", cnfPwd)
+        setEmail("")
+        setPassword("")
+        setCnfPwd("")
     } else {
       alert("Please check the fields");
     }
   }
 
-  function handleEmail(e) {
-    console.log(e.target.value);
-  }
+  useEffect(()=>{
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(emailRegex.test(email)){
+        setEmailState(true);
+    }else{
+        setEmailState(false);
+    }
+  },[email])
+
+  useEffect(()=>{
+    if (password.length >= 8) {
+        setPwdState(true);
+    } else {
+        setPwdState(false);
+    }
+  },[password])
+
+  useEffect(()=>{
+    if (password === cnfPwd) {
+        setCnfState(true);
+    } else {
+        setCnfState(false);
+    }
+  },[cnfPwd])
+  
   return (
     <form className="form_container" onSubmit={handleSubmit}>
       <div className="input__container">
@@ -31,11 +59,11 @@ const Form = () => {
           id="email"
           name="email"
           placeholder="abc@xyz.com"
+          onChange={(e)=>setEmail(e.target.value)}
           value={email}
-          onChange={(e)=>handleEmail(e)}
-          //   required
+            // required
         />
-        <p className={validEmail ? "hide" : "error_txt"}>
+        <p className={(email !== "")?(validEmail ? "hide" : "error_txt"):"hide"}>
           Invalid email format!
         </p>
       </div>
@@ -47,11 +75,11 @@ const Form = () => {
           id="password"
           name="password"
           placeholder="Enter a password"
+          onChange={(e)=>setPassword(e.target.value)}
           value={password}
-          onChange={(e)=>handleEmail(e)}
           //   required
         />
-        <p className={validPwd ? "hide" : "error_txt"}>
+        <p className={(password !== "")?(validPwd ? "hide" : "error_txt"):"hide"}>
           Password must be atleast 8 characters!
         </p>
       </div>
@@ -63,11 +91,11 @@ const Form = () => {
           id="confirm_pwd"
           name="confirm_pwd"
           placeholder="Re-Enter the password"
+          onChange={(e)=>setCnfPwd(e.target.value)}
           value={cnfPwd}
-          onChange={(e)=>handleEmail(e)}
           //   required
         />
-        <p className={validCnfPwd ? "hide" : "error_txt"}>
+        <p className={(cnfPwd !== "")?(validCnfPwd ? "hide" : "error_txt"):"hide"}>
           Passwords do not match!
         </p>
       </div>
