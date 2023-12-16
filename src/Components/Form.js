@@ -4,13 +4,23 @@ const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cnfPwd, setCnfPwd] = useState("");
-  const [showErr, setShowErr] = useState(false);
-
+  const [validEmail, setEmailState] = useState("");
+  const [validPwd, setPwdState] = useState("");
+  const [validCnfPwd, setCnfState] = useState("");
+  //   const [allowSubmit, submitState] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("i ran");
+    if (validEmail && validPwd && validCnfPwd) {
+      console.log("i ran");
+      // allowSubmit(true);
+    } else {
+      alert("Please check the fields");
+    }
   }
 
+  function handleEmail(e) {
+    console.log(e.target.value);
+  }
   return (
     <form className="form_container" onSubmit={handleSubmit}>
       <div className="input__container">
@@ -21,9 +31,13 @@ const Form = () => {
           id="email"
           name="email"
           placeholder="abc@xyz.com"
-          required
+          value={email}
+          onChange={(e)=>handleEmail(e)}
+          //   required
         />
-        <p className={showErr ? "error_txt" : "hide"}>Invalid email format!</p>
+        <p className={validEmail ? "hide" : "error_txt"}>
+          Invalid email format!
+        </p>
       </div>
       <div className="input__container">
         <label htmlFor="password">Password:</label>
@@ -33,9 +47,11 @@ const Form = () => {
           id="password"
           name="password"
           placeholder="Enter a password"
-          required
+          value={password}
+          onChange={(e)=>handleEmail(e)}
+          //   required
         />
-        <p className={showErr ? "error_txt" : "hide"}>
+        <p className={validPwd ? "hide" : "error_txt"}>
           Password must be atleast 8 characters!
         </p>
       </div>
@@ -47,9 +63,11 @@ const Form = () => {
           id="confirm_pwd"
           name="confirm_pwd"
           placeholder="Re-Enter the password"
-          required
+          value={cnfPwd}
+          onChange={(e)=>handleEmail(e)}
+          //   required
         />
-        <p className={showErr ? "error_txt" : "hide"}>
+        <p className={validCnfPwd ? "hide" : "error_txt"}>
           Passwords do not match!
         </p>
       </div>
