@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-
+import Form from "./Components/Form";
 const App = () => {
   return (
-    <div>
-      <h1>Under development</h1>
-    </div>
+    <>
+      <Form />
+    </>
   );
 };
 
